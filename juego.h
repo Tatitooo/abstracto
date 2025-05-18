@@ -6,6 +6,7 @@
 
 #define PUNTOS_GANAR 12
 
+/* Estructura para el historial de la jugada; es como una lista simplemente enlazada donde se guarda la información de cada turno */
 typedef struct HistorialJugada
 {
     char nombreJugador[MAX_NOMBRE_JUGADOR];
@@ -15,6 +16,7 @@ typedef struct HistorialJugada
     struct HistorialJugada* siguiente;
 } HistorialJugada;
 
+/* Estructura para guardar toda la información de la partida actual */
 typedef struct
 {
     Jugador jugador;
@@ -22,11 +24,12 @@ typedef struct
     tMazo mazo;
     tMazo descarte;
     HistorialJugada* historial;
-    int turnoActual; // alterna entre 0 y 1
-    int dificultad; 
-    Carta ultimaCartaJugador;
-    Carta ultimaCartaIA; 
+    int turnoActual; // Alterna entre 0 y 1
+    int dificultad; // Podría calcularse como (partida.ia).tipo, pero por legibilidad lo agregamos a la estructura
+    Carta ultimaCartaJugador; // Última carta jugada por el humano
+    Carta ultimaCartaIA;     // Última carta jugada por la IA
 } Partida;
+
 void inicializarPartida(Partida* partida, const char* nombreJugador, int dificultad);
 void jugarPartida(Partida* partida);
 void liberarPartida(Partida* partida);
