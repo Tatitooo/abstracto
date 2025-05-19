@@ -17,6 +17,8 @@ const char* nombreCarta(TipoCarta tipo)
         return "Repetir turno";
     case ESPEJO:
         return "Espejo";
+    default:
+        return "Desconocida";
     }
 }
 
@@ -148,6 +150,7 @@ void mezclarMazo(tMazo* mazo)
     }
 
     /* Mezclar con el algoritmo Fisher-Yates */
+    srand((unsigned int)time(NULL));
     for(int i = cantCartas - 1; i > 0; i--)
     {
         int j = rand() % (i + 1);
@@ -161,6 +164,8 @@ void mezclarMazo(tMazo* mazo)
     {
         agregarCartaMazo(mazo, cartas[i]);
     }
+
+    free(cartas);
 }
 
 void crearMazoInicial(tMazo* mazo)
