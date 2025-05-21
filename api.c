@@ -23,7 +23,7 @@ ApiClient* crear_api_client(const char* base_url) {
     client->base_url = strdup(base_url);
     
     curl_global_init(CURL_GLOBAL_DEFAULT);
-    client->curl = NULL;
+    client->curl = curl_easy_init();
     
     return client;
 }
