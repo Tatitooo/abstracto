@@ -30,4 +30,5 @@ void liberar_ranking(Ranking* ranking) {
     if (ranking->jugadores) {
         free(ranking->jugadores);
     }
+    free(ranking);
 }
