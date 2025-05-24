@@ -6,6 +6,7 @@ Ranking* crear_ranking() {
     ranking->jugadores = NULL;
     ranking->cantidad = 0;
     return ranking;
+    free(ranking);
 }
 
 void agregar_jugador_ranking(Ranking* ranking, const char* nombre, int puntaje) {
@@ -30,5 +31,4 @@ void liberar_ranking(Ranking* ranking) {
     if (ranking->jugadores) {
         free(ranking->jugadores);
     }
-    free(ranking);
 }
