@@ -38,5 +38,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions />
+			<Unit filename="interfaz.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="interfaz.h" />
 	</Project>
 </CodeBlocks_project_file>
