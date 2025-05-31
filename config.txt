@@ -1,3 +1,1 @@
-server_url=http://localhost:8080
-max_jugadores=4
-debug_mode=0
+https://algoritmos-api.azurewebsites.net/api/doce/interfaz|interfaz 

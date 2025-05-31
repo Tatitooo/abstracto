@@ -1,7 +1,10 @@
 #ifndef INFORME_H
 #define INFORME_H
 
-void generar_informe(const char* nombre_archivo);
-void agregar_linea_informe(const char* linea);
+#include "juego.h"
+#include <time.h>
 
-#endif
+void obtenerFechaHoraActual(char* buffer, int tamMaximo);
+void generarInformePartida(const Partida* partida);
+
+#endif // INFORME_H

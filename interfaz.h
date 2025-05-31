@@ -1,19 +1,30 @@
 #ifndef INTERFAZ_H
 #define INTERFAZ_H
 
-#include <SDL2/SDL.h>
+#include "api.h"
+#include "juego.h"
 
-typedef struct {
-    SDL_Window* ventana;
-    SDL_Renderer* renderer;
-    int ancho;
-    int alto;
-} Interfaz;
+#define SALIR_DEL_JUEGO -2
 
-int inicializar_interfaz(Interfaz* interfaz);
-void actualizar_interfaz(Interfaz* interfaz);
-void dibujar_menu(Interfaz* interfaz);
-void cerrar_interfaz(Interfaz* interfaz);
-int manejar_eventos(Interfaz* interfaz);
+void iniciarInterfaz();
+void cerrarInterfaz();
+void mostrarMenuPrincipal();
+int mostrarSeleccionDificultad();
+void mostrarRanking(const JugadorRanking* ranking, int numJugadores);
+void pedirNombreJugador(char* nombre);
+int esperarMenuPrincipal();
+void iniciarPantallaJuego(const Partida* partida);
+void terminarPantallaJuego();
+int elegirCartaGUI(const Jugador* jugador, const Partida* partida);
+void mostrarTurnoJugador(const char* nombreJugador, int esIA);
+void mostrarResultadoPartida(const Partida* partida);
+int preguntarUsarEspejoGUI(const Jugador* jugador, TipoCarta cartaAtacante);
+int interfazSigueCorriendo();
 
-#endif
+/* Audio functions */
+void reproducirMusicaJuego();
+void reproducirSonidoCarta();
+void reproducirSonidoVictoria();
+void reproducirSonidoDerrota();
+
+#endif // INTERFAZ_H

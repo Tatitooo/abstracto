@@ -2,22 +2,21 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="abstracto" />
+		<Option title="DoCe" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/abstracto" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/DoCe" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-			<Add directory="include" />
 					<Add option="-g" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/abstracto" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/DoCe" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -25,35 +24,64 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-			<Add library="lib/libSDL2.a" />
-			<Add library="lib/libSDL2main.a" />
-			<Add library="opengl32" />
-			<Add library="gdi32" />
-			<Add library="winmm" />
-			<Add library="lib/libcurl.dll.a" />
-			<Add directory="lib" />
 					<Add option="-s" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add directory="include" />
 		</Compiler>
+		<Linker>
+			<Add library="lib/libSDL2.a" />
+			<Add library="lib/libSDL2main.a" />
+			<Add library="opengl32" />
+			<Add library="gdi32" />
+			<Add library="m" />
+			<Add library="setupapi" />
+			<Add library="ole32" />
+			<Add library="imm32" />
+			<Add library="version" />
+			<Add library="oleaut32" />
+			<Add library="cfgmgr32" />
+			<Add library="winmm" />
+			<Add library="lib/libcurl.dll.a" />
+			<Add directory="lib" />
+		</Linker>
+		<Unit filename="Makefile" />
+		<Unit filename="api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="api.h" />
+		<Unit filename="cartas.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="cartas.h" />
+		<Unit filename="informe.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="informe.h" />
+		<Unit filename="interfaz.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="interfaz.h" />
+		<Unit filename="juego.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="juego.h" />
+		<Unit filename="jugador.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="jugador.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Extensions />
-			<Unit filename="interfaz.c">
+		<Unit filename="ranking.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="interfaz.h" />
-			<Unit filename="api.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="api.h" />
-		<Unit filename="Makefile" />
+		<Unit filename="ranking.h" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

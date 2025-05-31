@@ -1,19 +1,34 @@
 #ifndef API_H
 #define API_H
 
-typedef struct {
-    char* data;
-    size_t size;
-} ApiResponse;
+#include <curl/curl.h>
 
-typedef struct {
-    void* curl;
-    char* base_url;
-} ApiClient;
+#define LINK_API "https://algoritmos-api.azurewebsites.net/api/doce"
 
-ApiClient* crear_api_client(const char* base_url);
-ApiResponse* hacer_peticion(ApiClient* client, const char* endpoint);
-void liberar_api_response(ApiResponse* response);
-void liberar_api_client(ApiClient* client);
+/* Estructura para la configuración de la API */
+typedef struct
+{
+    char url[256];
+    char codigo[64];
+} ConfigAPI;
 
-#endif
+/* Estructura para almacenar la respuesta de la API */
+typedef struct
+{
+    char* datos;
+    size_t tam;
+} RespuestaAPI;
+
+/* Estructura para el ranking */
+typedef struct
+{
+    char nombre[32];
+    int victorias;
+} JugadorRanking;
+
+/* Funciones principales */
+int leerConfiguracionAPI(ConfigAPI* config);
+int enviarResultado(const char* nombreJugador, int esVencedor);
+int obtenerRankingAPI(JugadorRanking** ranking, int* numJugadores);
+
+#endif /* API_H */

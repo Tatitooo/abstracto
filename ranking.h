@@ -1,22 +1,20 @@
 #ifndef RANKING_H
 #define RANKING_H
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "jugador.h"
+#include "api.h"
 
-typedef struct {
-    char nombre[50];
-    int puntaje;
-} Jugador_Ranking;
+#define MAX_URL 128
+#define MAX_CODIGO_GRUPO 16
 
-typedef struct {
-    Jugador_Ranking* jugadores;
-    int cantidad;
-} Ranking;
+/* Estructura para leer la configuración de la API*/
+typedef struct
+{
+    char url[MAX_URL];
+    char codigoGrupo[MAX_CODIGO_GRUPO];
+} ConfigApi;
 
-Ranking* crear_ranking();
-void agregar_jugador_ranking(Ranking* ranking, const char* nombre, int puntaje);
-void mostrar_ranking(Ranking* ranking);
-void liberar_ranking(Ranking* ranking);
+int leerConfigApi(ConfigApi* config);
+void mostrarRankingApi(const ConfigApi* config);
 
-#endif
+#endif // RANKING_H

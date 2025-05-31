@@ -1,4 +1,5 @@
 #include "jugador.h"
+#include "interfaz.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -13,18 +14,18 @@ void inicializarJugador(Jugador* jugador, const char* nombre, TipoJugador tipo)
 
     for (i = 0; i < MAX_MANO; i++)
     {
-        /* El vector mano es de tipo Carta, as� que le asignamos un valor default */
+        /* El vector mano es de tipo Carta, así que le asignamos un valor default */
         jugador->mano[i].tipo = MAS1;
         strcpy(jugador->mano[i].nombre, "");
     }
 }
 
 void robarCartaMano(Jugador* jugador, tMazo* mazo, tMazo* descarte)
-{   
+{
     int i;
     for (i = 0; i < MAX_MANO; i++)
     {
-        /* Si la carta est� seteada para ser eliminada, cambiar esa */
+        /* Si la carta está seteada para ser eliminada, cambiar esa */
         if (strcmp(jugador->mano[i].nombre, ELIMINAR_CARTA) == 0)
         {
             asegurarCartasDisponibles(mazo, descarte);
@@ -49,7 +50,7 @@ int elegirCartaIA(Jugador* jugador, Jugador* rival)
     {
         /* No usa una carta de "sacar puntos" si el oponente tiene 0 puntos. */
         /* Regla propia: Es menos probable que elija una carta de "-2" si el oponente tiene 1 punto */
-        /* Si tiene 8 puntos o m�s, prioriza las cartas que suman puntos */
+        /* Si tiene 8 puntos o más, prioriza las cartas que suman puntos */
 
         for (i = 0; i < MAX_MANO; i++)
         {
@@ -82,8 +83,8 @@ int elegirCartaIA(Jugador* jugador, Jugador* rival)
                 break;
             }
 
-            /* Guarda la carta con m�s prioridad. En caso de haber empate, va con la primera que tenga
-            (que en la pr�ctica es lo mismo que hacerlo aleatorio) */
+            /* Guarda la carta con más prioridad. En caso de haber empate, va con la primera que tenga
+            (que en la práctica es lo mismo que hacerlo aleatorio) */
             if (prioridad > mayorPrioridad)
             {
                 mayorPrioridad = prioridad;
@@ -94,17 +95,17 @@ int elegirCartaIA(Jugador* jugador, Jugador* rival)
         return mejorCarta;
     }
 
-    /* Dif�cil: Elige la mejor jugada */
+    /* Difícil: Elige la mejor jugada */
     else if (jugador->tipo == IA_DIFICIL)
     {
         /* No usa una carta de "sacar puntos" si el oponente tiene 0 puntos. */
         /* Regla propia: Es menos probable que elija una carta de "-2" si el oponente tiene 1 punto */
-        /* Si tiene 8 puntos o m�s, prioriza las cartas que suman puntos */
-        /* Regla propia: en esa situaci�n prioriza los +2 sobre los +1 */
-        /* Si el jugador est� cerca de ganar, prioriza "repetir turno" o "sacar punto" */
-        /* Regla propia: dada esa situaci�n, prioriza el -2 sobre el -1 */
+        /* Si tiene 8 puntos o más, prioriza las cartas que suman puntos */
+        /* Regla propia: en esa situación prioriza los +2 sobre los +1 */
+        /* Si el jugador está cerca de ganar, prioriza "repetir turno" o "sacar punto" */
+        /* Regla propia: dada esa situación, prioriza el -2 sobre el -1 */
         /* Si recibe una carta negativa, usa la carta espejo. El resto de las veces prefiere no usarla. */
-        /* Solo repite turno si las otras dos cartas son buenas (nuestra definici�n de "buena" va a ser +2, +1 o espejo)*/
+        /* Solo repite turno si las otras dos cartas son buenas (nuestra definición de "buena" va a ser +2, +1 o espejo)*/
 
         for (i = 0; i < MAX_MANO; i++)
         {
@@ -147,11 +148,11 @@ int elegirCartaIA(Jugador* jugador, Jugador* rival)
                 if (cartasBuenas >= 2) prioridad = 4; // Normal (pero con preferencia)
                 break;
             case ESPEJO:
-                prioridad = -1; // �ltimo recurso
+                prioridad = 0; // Último recurso
                 break;
             }
 
-            if (prioridad >= mayorPrioridad)
+            if (prioridad > mayorPrioridad)
             {
                 mayorPrioridad = prioridad;
                 mejorCarta = i;
@@ -161,7 +162,7 @@ int elegirCartaIA(Jugador* jugador, Jugador* rival)
         return mejorCarta;
     }
 
-    /* Si la IA est� en f�cil, o hay alg�n error de programaci�n tal que no se encuentra la dificultad,
+    /* Si la IA está en fácil, o hay algún error de programación tal que no se encuentra la dificultad,
     devuelve una carta random de su mano */
     return rand() % MAX_MANO;
 }

@@ -1,33 +1,67 @@
+#include "interfaz.h"
+#include "juego.h"
+#include "informe.h"
+#include "ranking.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "cartas.h"
-#include "jugador.h"
-#include "juego.h"
-#include "ranking.h"
-#include "informe.h"
-#include "interfaz.h"
-#include "api.h"
+#include <time.h>
 
-int main() {
-    ApiClient* api = crear_api_client("http://localhost:8080/");
-    Interfaz interfaz;
-    FILE* config = fopen("config.txt", "r");
-    if (config) {
-        char line[256];
-        while (fgets(line, sizeof(line), config)) {
-            // Procesar configuración
+int main()
+{
+    srand((unsigned int)time(NULL));
+    int opcion, dificultad, salir = 0;
+    char nombre[MAX_NOMBRE_JUGADOR];
+    Partida partida;
+    ConfigApi config;
+
+    iniciarInterfaz();
+
+    while (!salir && interfazSigueCorriendo())
+    {
+        mostrarMenuPrincipal();
+        opcion = esperarMenuPrincipal();
+
+        if (!interfazSigueCorriendo())
+        {
+            salir = 1;
+            break;
         }
-        fclose(config);
+
+        if (opcion == 0)   // Jugar
+        {
+            pedirNombreJugador(nombre);
+
+            if (!interfazSigueCorriendo())
+            {
+                salir = 1;
+                break;
+            }
+
+            dificultad = mostrarSeleccionDificultad();
+
+            if (!interfazSigueCorriendo())
+            {
+                salir = 1;
+                break;
+            }
+
+            inicializarPartida(&partida, nombre, dificultad);
+            jugarPartida(&partida);
+            generarInformePartida(&partida);
+            liberarPartida(&partida);
+        }
+        else if (opcion == 1)     // Ranking
+        {
+            if (leerConfigApi(&config))
+            {
+                mostrarRankingApi(&config);
+            }
+        }
+        else if (opcion == 2)     // Salir
+        {
+            salir = 1;
+        }
     }
-    if (inicializar_interfaz(&interfaz) < 0) {
-        return 1;
-    }
-    printf("Bienvenido al juego\n");
-    
-    Ranking* ranking = crear_ranking();
-    agregar_jugador_ranking(ranking, "Jugador1", 100);
-    mostrar_ranking(ranking);
-    generar_informe("informe.txt");
-    
+    cerrarInterfaz();
     return 0;
 }
