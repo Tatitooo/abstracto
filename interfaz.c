@@ -581,7 +581,7 @@ void iniciarInterfaz()
 
     /* Procesar eventos pendientes para que no se cuelgue la ventana */
     SDL_Event event;
-    if (SDL_PollEvent(&event))
+    while (SDL_PollEvent(&event))
     {
         if (event.type == SDL_QUIT)
         {
@@ -642,7 +642,7 @@ void mostrarMenuPrincipal()
     do
     {
         nk_input_begin(ctx);
-        if (SDL_PollEvent(&evt))
+        while (SDL_PollEvent(&evt))
         {
             if (evt.type == SDL_QUIT)
             {
@@ -1020,7 +1020,7 @@ int mostrarSeleccionDificultad()
     do
     {
         nk_input_begin(ctx);
-        if (SDL_PollEvent(&evt))
+        while (SDL_PollEvent(&evt))
         {
             if (evt.type == SDL_QUIT)
             {
@@ -1211,7 +1211,7 @@ void pedirNombreJugador(char* nombre)
     do
     {
         nk_input_begin(ctx);
-        if (SDL_PollEvent(&evt))
+        while (SDL_PollEvent(&evt))
         {
             if (evt.type == SDL_QUIT)
             {
@@ -1437,7 +1437,7 @@ void mostrarRanking(const JugadorRanking* ranking, int numJugadores)
     while (!continuarPresionado && corriendo)
     {
         nk_input_begin(ctx);
-        if (SDL_PollEvent(&evt))
+        while (SDL_PollEvent(&evt))
         {
             if (evt.type == SDL_QUIT)
             {
@@ -1560,7 +1560,7 @@ static void manejarEventosSDL(struct nk_context* ctx, int* corriendo)
 {
     SDL_Event evt;
     nk_input_begin(ctx);
-    if (SDL_PollEvent(&evt))
+    while (SDL_PollEvent(&evt))
     {
         if (evt.type == SDL_QUIT)
         {
@@ -2014,7 +2014,7 @@ int preguntarUsarEspejoGUI(const Jugador* jugador, TipoCarta cartaAtacante)
     while (eleccionEspejo == -1 && corriendo)
     {
         nk_input_begin(ctx);
-        if (SDL_PollEvent(&evt))
+        while (SDL_PollEvent(&evt))
         {
             if (evt.type == SDL_QUIT)
             {
