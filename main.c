@@ -9,6 +9,14 @@
 
 int main() {
     Interfaz interfaz;
+    FILE* config = fopen("config.txt", "r");
+    if (config) {
+        char line[256];
+        while (fgets(line, sizeof(line), config)) {
+            // Procesar configuración
+        }
+        fclose(config);
+    }
     if (inicializar_interfaz(&interfaz) < 0) {
         return 1;
     }
