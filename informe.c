@@ -17,6 +17,7 @@ void generar_informe(const char* nombre_archivo) {
             tm->tm_hour, tm->tm_min);
     
     fprintf(archivo, "Estado del juego: OK\n");
+    fclose(archivo);
 }
 
 void agregar_linea_informe(const char* linea) {
@@ -24,4 +25,5 @@ void agregar_linea_informe(const char* linea) {
     if (!archivo) return;
     
     fprintf(archivo, "%s\n", linea);
+    fclose(archivo);
 }
