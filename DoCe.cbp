@@ -49,5 +49,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="interfaz.h" />
+			<Unit filename="api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="api.h" />
 	</Project>
 </CodeBlocks_project_file>

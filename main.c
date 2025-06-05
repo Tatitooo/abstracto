@@ -6,8 +6,10 @@
 #include "ranking.h"
 #include "informe.h"
 #include "interfaz.h"
+#include "api.h"
 
 int main() {
+    ApiClient* api = crear_api_client("http://localhost:8080/");
     Interfaz interfaz;
     FILE* config = fopen("config.txt", "r");
     if (config) {
