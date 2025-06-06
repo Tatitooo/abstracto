@@ -37,15 +37,38 @@
 **Salida obtenida:** La salida obtenida fue un mensaje indicando el fin de la partida y el ganador.<br />
 ![image](https://github.com/user-attachments/assets/05bf64e6-46dd-4e10-aa13-1ea0743a47c5)<br />
 
-## Caso de Prueba 7: Visualización de Turno Actual
-**Descripción:** Se quiere probar si durante la partida, el sistema muestra correctamente de quién es el turno (jugador o IA).<br />
-**Salida esperada:** Se espera que el sistema indique en pantalla el turno actual.<br />
-**Salida obtenida:** La salida obtenida fue la visualización del turno actual correctamente.<br />
-![image](https://github.com/user-attachments/assets/168edb87-deb9-4e86-b31a-7f4715449fec)<br />
-![image](https://github.com/user-attachments/assets/ce73505e-d470-42c8-a2bb-aff8b38064fa)<br />
-
-## Caso de Prueba 8: Visualización de Puntuación Parcial Durante la Partida
+## Caso de Prueba 7: Visualización de Puntuación Parcial Durante la Partida
 **Descripción:** Se quiere probar si durante el desarrollo de la partida, el sistema muestra correctamente la puntuación parcial de ambos jugadores después de cada turno.<br />
 **Salida esperada:** Se espera que el sistema actualice y muestre en pantalla la puntuación parcial del jugador y de la IA tras cada turno.<br />
 **Salida obtenida:** La salida obtenida fue la visualización correcta de la puntuación parcial de ambos jugadores después de cada turno.<br />
 ![image](https://github.com/user-attachments/assets/a4958392-fd84-4af7-ad14-7fd4738f0722)<br />
+
+## Caso de Prueba 8: Usar Espejo Después de Rechazar
+**Descripción:** Se quiere probar qué ocurre si el jugador decide que no quiere usar un espejo como respuesta a un ataque.<br />
+**Salida esperada:** Se espera que el jugador no pueda jugar el espejo desde su mano después.<br />
+**Salida obtenida:** El jugador no puede jugar el espejo por más que le haga clic.<br />
+![image](https://github.com/user-attachments/assets/788502db-54d0-4955-bd08-99261482e0f9)<br />
+*Por más que se resalte la carta, el usuario no puede jugarla ya que decidió rechazar el espejo.*
+
+
+## Caso de Prueba 9: Tres Espejos
+**Descripción:** Se quiere probar qué ocurre si en algún punto de la partida el jugador tiene 3 espejos y decide no usar espejo como respuesta a una reducción de puntos.<br />
+**Salida esperada:** Se espera que el sistema prevenga este *softlock* prohibiendo que el jugador decida no usar espejo si sus tres cartas son del tipo Espejo.<br />
+**Salida obtenida:** El espejo se utiliza automáticamente si el jugador tiene 3 Espejos.<br />
+
+![image](https://github.com/user-attachments/assets/cd994b8d-884f-4204-81cf-63362dc2df38)<br />
+![image](https://github.com/user-attachments/assets/9b74b00d-0027-4b44-85c5-be409b32d3ff)<br />
+
+## Caso de Prueba 10: Restar con Pocos Puntos
+**Descripción:** Se quiere probar qué ocurre si el jugador le intenta restar puntos a un rival con 0 puntos (o 1 punto en el caso de usar -2).<br />
+**Salida esperada:** Se espera que el rival se quede con 0 puntos, en vez de ir a lo negativo. <br />
+**Salida obtenida:** El rival se queda con 0 puntos.<br />
+![image](https://github.com/user-attachments/assets/7dc29384-8da5-4608-9dd7-9c04a0177073)<br />
+![image](https://github.com/user-attachments/assets/0a8653b5-b836-46a2-9787-5495e8446b24)<br />
+
+## Caso de Prueba 11: Usar Espejo sin Carta Negativa
+**Descripción:** Se quiere probar qué ocurre si un jugador utiliza la carta espejo después de que su rival juegue una carta que no sea de restar puntos.<br />
+**Salida esperada:** La carta espejo no tiene efecto.<br />
+**Salida obtenida:** La carta espejo no tiene efecto.<br />
+![image](https://github.com/user-attachments/assets/1f3c9413-6aa2-4391-bf65-bb065ce86f64)<br />
+![image](https://github.com/user-attachments/assets/920b5d4b-14c8-4e86-9bca-de8a711737c6)<br />

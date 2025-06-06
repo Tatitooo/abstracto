@@ -59,7 +59,19 @@ Para modificar configuraciones como el nombre del jugador, la dificultad o el co
 
 1. Abrí los archivos de configuración o variables en el código fuente.
 2. Realizá los cambios necesarios 🛠️. Hay comentarios para ayudarte a entender el código.
-3. Guardá, compilá y ejecutá nuevamente el juego ▶️.
+3. Guardá, compilá y ejecutá nuevamente el juego. ▶️
+
+---
+
+## 🧾 Configuración de la API
+Las configuraciones de la API se leen del archivo `config.txt` con el siguiente formato:
+```nginx
+UrlApi | Código identificador del grupo
+```
+En este caso:
+```nginx
+https://algoritmos-api.azurewebsites.net/api/doce | interfaz
+```
 
 ---
 

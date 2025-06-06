@@ -1,11 +1,15 @@
-*.bat
-*.o
+# Executables
 *.exe
-bin/
-**/bin/
-obj/
-**/obj/
-*.depend
-*.layout
-*.log
-.vscode/
+test-*
+
+# Build artifacts
+*.o
+*.obj
+*.dll
+*.so
+*.dylib
+
+# Temporary files
+*~
+*.tmp
+DoCe.layout

@@ -18,7 +18,7 @@ void terminarPantallaJuego();
 int elegirCartaGUI(const Jugador* jugador, const Partida* partida);
 void mostrarTurnoJugador(const char* nombreJugador, int esIA);
 void mostrarResultadoPartida(const Partida* partida);
-int preguntarUsarEspejoGUI(const Jugador* jugador, TipoCarta cartaAtacante);
+int preguntarUsarEspejoGUI(const Jugador* jugador, TipoCarta cartaAtacante, int puntosRival);
 int interfazSigueCorriendo();
 
 /* Audio functions */

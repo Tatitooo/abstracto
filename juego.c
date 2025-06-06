@@ -67,49 +67,32 @@ void inicializarPartida(Partida* partida, const char* nombreJugador, int dificul
     partida->turnoActual = rand() % 2;
 }
 
-/* Preguntar si el jugador quiere usar una tarjeta espejo después de un ataque */
-int preguntarUsarEspejo(Jugador* jugador, TipoCarta cartaAtacante)
-{
-    int i;
-
-    for (i = 0; i < MAX_MANO; i++)
-    {
-        if (jugador->mano[i].tipo == ESPEJO)
-        {
-            /* Si es IA difícil, siempre devuelve */
-            if (jugador->tipo == IA_DIFICIL)
-            {
-                return i;
-            }
-            /* Si es otra dificultad, hay un 1/MAX_MANO de probabilidades de que devuelva */
-            else if (jugador->tipo != HUMANO)
-            {
-                return rand() % MAX_MANO == 0 ? i : -1;
-            }
-            /* Si es humano, pregunta por la GUI */
-            else
-            {
-                return preguntarUsarEspejoGUI(jugador, cartaAtacante);
-            }
-        }
-    }
-    /* No hay carta espejo */
-    return -1;
-}
-
 void aplicarEfectoCarta(Partida* partida, Jugador* actual, Jugador* rival, int idxCarta, int* repetirTurno, int* efectoEspejo)
 {
     Carta carta = actual->mano[idxCarta];
     int espejoUsado = -1;
+    int puntosRivalAntes = rival->puntos;
 
     /* Nos fijamos si el rival quiere usar la carta espejo */
     if (carta.tipo == MENOS1 || carta.tipo == MENOS2)
     {
-        espejoUsado = preguntarUsarEspejo(rival, carta.tipo);
+        espejoUsado = preguntarUsarEspejo(rival, carta.tipo, actual->puntos);
         if (espejoUsado >= 0)
         {
-            /* Se usó la carta espejo, así que hay que dar vuelta el efecto. */
-            *efectoEspejo = 1; // Registrar que sucedió el hecho para después agregarlo al historial
+            /* Primero aplicamos el efecto original para el historial */
+            if (carta.tipo == MENOS1)
+            {
+                rival->puntos = rival->puntos > 0 ? rival->puntos - 1 : 0;
+            }
+            else if (carta.tipo == MENOS2)
+            {
+                rival->puntos = rival->puntos > 1 ? rival->puntos - 2 : 0;
+            }
+            /* Registramos la jugada original con los puntos que habrían quedado */
+            agregarHistorial(partida, actual->nombre, nombreCarta(carta.tipo), actual->puntos, rival->puntos, actual->tipo);
+
+            /* Ahora revertimos el efecto y aplicamos el espejo */
+            rival->puntos = puntosRivalAntes; // Restauramos los puntos originales
             if (carta.tipo == MENOS1)
             {
                 actual->puntos = actual->puntos > 0 ? actual->puntos - 1 : 0;
@@ -118,6 +101,10 @@ void aplicarEfectoCarta(Partida* partida, Jugador* actual, Jugador* rival, int i
             {
                 actual->puntos = actual->puntos > 1 ? actual->puntos - 2 : 0;
             }
+
+            /* Se usó la carta espejo */
+            *efectoEspejo = 1;
+
             if (rival->tipo == HUMANO) {
                 partida->ultimaCartaJugador = rival->mano[espejoUsado];
             } else {
@@ -126,6 +113,14 @@ void aplicarEfectoCarta(Partida* partida, Jugador* actual, Jugador* rival, int i
             descartarCarta(&partida->descarte, rival->mano[espejoUsado]);
             strcpy(rival->mano[espejoUsado].nombre, ELIMINAR_CARTA);
             robarCartaMano(rival, &partida->mazo, &partida->descarte);
+
+            /* Registramos la jugada del espejo con los puntos finales */
+            agregarHistorial(partida, rival->nombre, nombreCarta(ESPEJO), rival->puntos, actual->puntos, rival->tipo);
+            return; // Salimos porque ya registramos todo
+        }
+        else if (espejoUsado == -2) // El jugador decidió no usar la carta espejo
+        {
+            rival->rechazoEspejo = 1; // Marcamos que rechazó usar el espejo
         }
     }
 
@@ -155,6 +150,8 @@ void aplicarEfectoCarta(Partida* partida, Jugador* actual, Jugador* rival, int i
         default:
             break;
         }
+        /* Registramos la jugada normal */
+        agregarHistorial(partida, actual->nombre, nombreCarta(carta.tipo), actual->puntos, rival->puntos, actual->tipo);
     }
 }
 
@@ -188,10 +185,22 @@ void jugarPartida(Partida* partida)
                 terminarPantallaJuego();
                 return;
             }
+
+            /* Si el jugador rechazó usar el espejo, no puede usarlo en este turno */
+            if (actual->rechazoEspejo && idxCarta >= 0 && actual->mano[idxCarta].tipo == ESPEJO)
+            {
+                idxCarta = -1; // Forzar a elegir otra carta
+                continue;
+            }
         }
         else
         {
             idxCarta = elegirCartaIA(actual, rival);
+            /* Verificar si el juego fue terminado durante el turno de la IA */
+            if (!interfazSigueCorriendo()) {
+                terminarPantallaJuego();
+                return;
+            }
         }
 
         repetirTurno = 0;
@@ -215,17 +224,14 @@ void jugarPartida(Partida* partida)
         }
 
         aplicarEfectoCarta(partida, actual, rival, idxCarta, &repetirTurno, &efectoEspejo);
-        agregarHistorial(partida, actual->nombre, nombreCarta(actual->mano[idxCarta].tipo), actual->puntos, rival->puntos, actual->tipo);
         descartarCarta(&partida->descarte, actual->mano[idxCarta]);
         strcpy(actual->mano[idxCarta].nombre, ELIMINAR_CARTA);
         robarCartaMano(actual, &partida->mazo, &partida->descarte);
 
         if (efectoEspejo)
         {
-            agregarHistorial(partida, rival->nombre, nombreCarta(ESPEJO), actual->puntos, rival->puntos, actual->tipo);
             partida->turnoActual = 1 - partida->turnoActual;
         }
-
         /* Nos fijamos si ya ganó alguno */
         if (actual->puntos >= PUNTOS_GANAR)
         {
@@ -234,6 +240,8 @@ void jugarPartida(Partida* partida)
         }
         else if (!repetirTurno)
         {
+            /* Resetear el flag de rechazo de espejo al cambiar de turno */
+            actual->rechazoEspejo = 0;
             partida->turnoActual = 1 - partida->turnoActual;
             /* Delay entre que se cambian jugadores */
             mostrarTurnoJugador(NULL, -1);

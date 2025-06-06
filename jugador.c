@@ -6,17 +6,15 @@
 
 void inicializarJugador(Jugador* jugador, const char* nombre, TipoJugador tipo)
 {
-    strncpy(jugador->nombre, nombre, MAX_NOMBRE_JUGADOR);
+    int i;
+    strcpy(jugador->nombre, nombre);
     jugador->puntos = 0;
-    jugador->tipo = tipo;
     jugador->esVencedor = 0;
-    int i = 0;
-
+    jugador->rechazoEspejo = 0;
+    jugador->tipo = tipo;
     for (i = 0; i < MAX_MANO; i++)
     {
-        /* El vector mano es de tipo Carta, así que le asignamos un valor default */
-        jugador->mano[i].tipo = MAS1;
-        strcpy(jugador->mano[i].nombre, "");
+        strcpy(jugador->mano[i].nombre, ELIMINAR_CARTA);
     }
 }
 
@@ -39,14 +37,75 @@ void robarCartaMano(Jugador* jugador, tMazo* mazo, tMazo* descarte)
     }
 }
 
+/* Preguntar si el jugador quiere usar una tarjeta espejo después de un ataque */
+int preguntarUsarEspejo(Jugador* jugador, TipoCarta cartaAtacante, int puntosRival)
+{
+    int i;
+    int cantidadEspejos = 0;
+    int indiceCartaEspejo = -1;
+
+    /* Contar cuántas cartas espejo tiene y encontrar la primera */
+    for (i = 0; i < MAX_MANO; i++)
+    {
+        if (jugador->mano[i].tipo == ESPEJO)
+        {
+            if (indiceCartaEspejo == -1)
+            {
+                indiceCartaEspejo = i;
+            }
+            cantidadEspejos++;
+        }
+    }
+
+    /* Si no hay carta espejo... */
+    if (cantidadEspejos == 0)
+    {
+        return -1;
+    }
+
+    /* Si tiene tres cartas espejo, está forzado a usar una */
+    if (cantidadEspejos == MAX_MANO)
+    {
+        return indiceCartaEspejo;
+    }
+
+    /* Si es IA difícil, siempre devuelve */
+    if (jugador->tipo == IA_DIFICIL)
+    {
+        return indiceCartaEspejo;
+    }
+    /* Si es otra dificultad, hay una probabilidad de cantidadEspejos/MAX_MANO de que devuelva */
+    else if (jugador->tipo != HUMANO)
+    {
+        return ((rand() % MAX_MANO) < cantidadEspejos) ? indiceCartaEspejo : -2;
+    }
+    /* Si es humano, pregunta por la GUI */
+    else
+    {
+        return preguntarUsarEspejoGUI(jugador, cartaAtacante, puntosRival);
+    }
+}
+
 int elegirCartaIA(Jugador* jugador, Jugador* rival)
 {
     int i, j, prioridad;
     int mejorCarta = -1, mayorPrioridad = -1, cartasBuenas = 0;
     TipoCarta tipo;
 
+    /* Fácil: Elige una carta al azar */
+    if (jugador->tipo == IA_FACIL)
+    {
+        do {
+            mejorCarta = rand() % MAX_MANO;
+            /* Si rechazó usar la carta espejo, no puede usarla */
+        } while (jugador->mano[mejorCarta].tipo == ESPEJO && jugador->rechazoEspejo);
+        /* Nunca va a haber while infinito porque siempre va a haber una carta que no sea espejo
+           (si no, no la habría rechazado) */
+        return mejorCarta;
+    }
+
     /* Medio: Evita jugadas inefectivas */
-    if (jugador->tipo == IA_MEDIO)
+    else if (jugador->tipo == IA_MEDIO)
     {
         /* No usa una carta de "sacar puntos" si el oponente tiene 0 puntos. */
         /* Regla propia: Es menos probable que elija una carta de "-2" si el oponente tiene 1 punto */
@@ -79,7 +138,8 @@ int elegirCartaIA(Jugador* jugador, Jugador* rival)
                 prioridad = 2; // Normal
                 break;
             case ESPEJO:
-                prioridad = 2; // Normal
+                if (jugador->rechazoEspejo) prioridad = -1; // Nunca va a ser elegida
+                else prioridad = 2; // Normal
                 break;
             }
 
@@ -152,6 +212,7 @@ int elegirCartaIA(Jugador* jugador, Jugador* rival)
                 break;
             }
 
+            /* Guardar la carta con más prioridad */
             if (prioridad > mayorPrioridad)
             {
                 mayorPrioridad = prioridad;
@@ -161,8 +222,6 @@ int elegirCartaIA(Jugador* jugador, Jugador* rival)
 
         return mejorCarta;
     }
-
-    /* Si la IA está en fácil, o hay algún error de programación tal que no se encuentra la dificultad,
-    devuelve una carta random de su mano */
+    /* Nunca debería llegar acá, pero si lo hace, devuelve una carta al azar */
     return rand() % MAX_MANO;
 }

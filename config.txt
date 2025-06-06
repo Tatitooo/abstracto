@@ -1,1 +1,1 @@
-https://algoritmos-api.azurewebsites.net/api/doce/interfaz|interfaz 
+https://algoritmos-api.azurewebsites.net/api/doce|interfaz 

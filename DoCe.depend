@@ -1,0 +1,635 @@
+# depslib dependency file v1.0
+1748967776 source:d:\documents\github\abstracto-priv\informe.c
+	"informe.h"
+	<stdio.h>
+	<stdlib.h>
+
+1748967776 d:\documents\github\abstracto-priv\informe.h
+	"juego.h"
+	<time.h>
+
+1748932245 d:\documents\github\abstracto-priv\juego.h
+	"api.h"
+	"cartas.h"
+	"jugador.h"
+
+1748926413 d:\documents\github\abstracto-priv\jugador.h
+	"cartas.h"
+
+1748886503 d:\documents\github\abstracto-priv\cartas.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1748395374 d:\documents\github\abstracto-priv\utils.h
+
+1748996304 source:d:\documents\github\abstracto-priv\ranking.c
+	"ranking.h"
+	"interfaz.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
+1748996300 d:\documents\github\abstracto-priv\ranking.h
+	"jugador.h"
+	"api.h"
+
+1748981019 d:\documents\github\abstracto-priv\interfaz.h
+	"api.h"
+	"juego.h"
+
+1748395374 source:d:\documents\github\abstracto-priv\utils.c
+	"utils.h"
+	<stdio.h>
+	<time.h>
+
+1748978892 source:d:\documents\github\abstracto-priv\cartas.c
+	"cartas.h"
+	<time.h>
+
+1748995572 source:d:\documents\github\abstracto-priv\interfaz.c
+	"api.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<math.h>
+	<stddef.h>
+	"juego.h"
+	"SDL2/SDL.h"
+	"SDL2/SDL_opengl.h"
+	"nuklear.h"
+	"nuklear_sdl.h"
+	"interfaz.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_filesystem.h"
+	"SDL_gamecontroller.h"
+	"SDL_guid.h"
+	"SDL_haptic.h"
+	"SDL_hidapi.h"
+	"SDL_hints.h"
+	"SDL_joystick.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_metal.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_sensor.h"
+	"SDL_shape.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"SDL_locale.h"
+	"SDL_misc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<wchar.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<float.h>
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	<sal.h>
+	"begin_code.h"
+	<stdlib.h>
+	<string.h>
+	<stdio.h>
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_config.h
+	"SDL_platform.h"
+	"SDL_config_windows.h"
+	"SDL_config_winrt.h"
+	"SDL_config_wingdk.h"
+	"SDL_config_xbox.h"
+	"SDL_config_macosx.h"
+	"SDL_config_iphoneos.h"
+	"SDL_config_android.h"
+	"SDL_config_os2.h"
+	"SDL_config_emscripten.h"
+	"SDL_config_ngage.h"
+	"SDL_config_minimal.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_platform.h
+	<AvailabilityMacros.h>
+	<TargetConditionals.h>
+	<TargetConditionals.h>
+	<winapifamily.h>
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\begin_code.h
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\close_code.h
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_config_windows.h
+	"SDL_platform.h"
+	<winsdkver.h>
+	<sdkddkver.h>
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_config_winrt.h
+	"SDL_platform.h"
+	<sdkddkver.h>
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_config_wingdk.h
+	"SDL_platform.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_config_xbox.h
+	"SDL_platform.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_config_macosx.h
+	"SDL_platform.h"
+	<AvailabilityMacros.h>
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_config_iphoneos.h
+	"SDL_platform.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_config_android.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_config_os2.h
+	"SDL_platform.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_config_emscripten.h
+	"SDL_platform.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_config_ngage.h
+	"SDL_platform.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_config_minimal.h
+	"SDL_platform.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_assert.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	<sys/cpuinline.h>
+	<mbarrier.h>
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_endian.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<endian.h>
+	<sys/byteorder.h>
+	<endian.h>
+	<sys/endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_atomic.h"
+	"SDL_mutex.h"
+	<process.h>
+	<process.h>
+	<stdlib.h>
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<arm_neon.h>
+	<altivec.h>
+	<arm_neon.h>
+	<armintr.h>
+	<arm_neon.h>
+	<arm64intr.h>
+	<arm64_neon.h>
+	<mm3dnow.h>
+	<lsxintrin.h>
+	<lasxintrin.h>
+	<immintrin.h>
+	<mmintrin.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	<pmmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_pixels.h
+	"SDL_stdinc.h"
+	"SDL_endian.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_guid.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_guid.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_gamecontroller.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"SDL_sensor.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_sensor.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_filesystem.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_haptic.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_hidapi.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_metal.h
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_shape.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_keyboard.h"
+	"SDL_render.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_locale.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_misc.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_opengl.h
+	"SDL_config.h"
+	"gl_mangle.h"
+	<windows.h>
+	"SDL_opengl_glext.h"
+
+1748395374 d:\documents\github\abstracto-priv\include\sdl2\sdl_opengl_glext.h
+	<windows.h>
+	<stdint.h>
+	<inttypes.h>
+	<stdint.h>
+
+1748395374 d:\documents\github\abstracto-priv\include\nuklear.h
+	"nuklear.h"
+	<stdarg.h>
+	<sal.h>
+	<stdint.h>
+	<stdbool.h>
+	<stdlib.h>
+	<stdio.h>
+	<stdarg.h>
+	<assert.h>
+	<stdlib.h>
+	<assert.h>
+	"stb_truetype.h"
+	<stdio.h>
+	"stb_truetype.h"
+	<math.h>
+	<math.h>
+	<math.h>
+	<math.h>
+	<math.h>
+	<stdlib.h>
+	<assert.h>
+	<string.h>
+	<string.h>
+
+1748395374 d:\documents\github\abstracto-priv\include\nuklear_sdl.h
+	<SDL2/SDL.h>
+	<string.h>
+	<stdlib.h>
+
+1748979635 source:d:\documents\github\abstracto-priv\jugador.c
+	"jugador.h"
+	"interfaz.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
+1748930644 source:d:\documents\github\abstracto-priv\main.c
+	"interfaz.h"
+	"juego.h"
+	"informe.h"
+	"ranking.h"
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1748990530 source:d:\documents\github\abstracto-priv\juego.c
+	"juego.h"
+	"interfaz.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"api.h"
+
+1748885001 d:\documents\github\abstracto-priv\api.h
+	<curl/curl.h>
+
+1748843073 d:\documents\github\abstracto-priv\include\curl\curl.h
+	"curlver.h"
+	"system.h"
+	<stdio.h>
+	<limits.h>
+	<sys/param.h>
+	<sys/types.h>
+	<time.h>
+	<winsock2.h>
+	<ws2tcpip.h>
+	<sys/select.h>
+	<sys/socket.h>
+	<sys/time.h>
+	"easy.h"
+	"multi.h"
+	"urlapi.h"
+	"options.h"
+	"header.h"
+	"websockets.h"
+	"mprintf.h"
+	"typecheck-gcc.h"
+
+1748843073 d:\documents\github\abstracto-priv\include\curl\curlver.h
+
+1748843073 d:\documents\github\abstracto-priv\include\curl\system.h
+	<ConditionalMacros.h>
+	<inttypes.h>
+	<inttypes.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<sys/poll.h>
+
+1748843073 d:\documents\github\abstracto-priv\include\curl\easy.h
+
+1748843073 d:\documents\github\abstracto-priv\include\curl\multi.h
+	"curl.h"
+
+1748843073 d:\documents\github\abstracto-priv\include\curl\urlapi.h
+	"curl.h"
+
+1748843073 d:\documents\github\abstracto-priv\include\curl\options.h
+
+1748843073 d:\documents\github\abstracto-priv\include\curl\header.h
+
+1748843073 d:\documents\github\abstracto-priv\include\curl\websockets.h
+
+1748843073 d:\documents\github\abstracto-priv\include\curl\mprintf.h
+	<stdarg.h>
+	<stdio.h>
+	"curl.h"
+
+1748843073 d:\documents\github\abstracto-priv\include\curl\typecheck-gcc.h
+
+1748885010 source:d:\documents\github\abstracto-priv\api.c
+	"api.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<curl/curl.h>
+

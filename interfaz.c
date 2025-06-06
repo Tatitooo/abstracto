@@ -1427,9 +1427,6 @@ void mostrarRanking(const JugadorRanking* ranking, int numJugadores)
 
     int i, continuarPresionado = 0;
 
-    float anchoTabla;
-    float padding;
-
     /* Forzar un renderizado inicial antes de entrar al bucle de eventos */
     nk_input_begin(ctx);
     nk_input_end(ctx);
@@ -1450,74 +1447,61 @@ void mostrarRanking(const JugadorRanking* ranking, int numJugadores)
 
         /* Interfaz gráfica */
         if (nk_begin(ctx, "Ranking de Jugadores", crearPanelFullscreen(),
-                     NK_WINDOW_NO_SCROLLBAR))
+                     NK_WINDOW_BORDER))
         {
-
-            /* Título con elementos decorativos */
-            nk_layout_row_dynamic(ctx, 40, 1);
-            {
-                /* Área del título */
-                nk_layout_row_dynamic(ctx, 60, 1);
-                nk_label(ctx, "RANKING DE JUGADORES", NK_TEXT_CENTERED);
-            }
+            /* Área del título (fuera del área scrolleable) */
+            nk_layout_row_dynamic(ctx, 60, 1);
+            nk_label(ctx, "RANKING DE JUGADORES", NK_TEXT_CENTERED);
 
             /* Separador decorativo */
             nk_layout_row_dynamic(ctx, 10, 1);
             nk_spacing(ctx, 1);
 
-            /* Área central para la tabla (usamos solo el 60% del ancho) */
-            anchoTabla = ventAncho * 0.6f;
-            padding = (ventAncho - anchoTabla) / 2;
-
-            /* Lista de jugadores */
-            if (ranking && numJugadores > 0)
+            /* Crear un grupo scrolleable para la tabla */
+            nk_layout_row_dynamic(ctx, ventAlto - 200, 1);  // Altura fija para el área scrolleable
+            if (nk_group_begin(ctx, "ranking_table", NK_WINDOW_BORDER | NK_WINDOW_SCROLL_AUTO_HIDE))
             {
-                /* Encabezados con estilo personalizado */
-                nk_layout_space_begin(ctx, NK_STATIC, 30, 2);
-
-                /* Estilo para los encabezados */
-                estiloVisualizacion = ctx->style.text;
-                ctx->style.text.color = nk_rgb(220, 220, 220);  // Gris muy claro
-                ctx->style.text.padding = nk_vec2(0, 2);
-
-                /* Encabezado "Jugador" */
-                nk_layout_space_push(ctx, nk_rect(padding, 0, anchoTabla/2, 30));
-                nk_text_colored(ctx, "JUGADOR", 7, NK_TEXT_CENTERED, nk_rgb(255, 255, 255));
-
-                /* Encabezado "Victorias" */
-                nk_layout_space_push(ctx, nk_rect(padding + anchoTabla/2, 0, anchoTabla/2, 30));
-                nk_text_colored(ctx, "VICTORIAS", 9, NK_TEXT_CENTERED, nk_rgb(255, 255, 255));
-
-                /* Restaurar estilo original */
-                ctx->style.text = estiloVisualizacion;
-                nk_layout_space_end(ctx);
-
-                /* Separador bajo los encabezados */
-                nk_layout_space_begin(ctx, NK_STATIC, 2, 1);
-                nk_layout_space_push(ctx, nk_rect(padding, 0, anchoTabla, 2));
-                nk_spacing(ctx, 1);
-                nk_layout_space_end(ctx);
-
-                /* Espacio después del separador */
-                nk_layout_row_dynamic(ctx, 5, 1);
-                nk_spacing(ctx, 1);
-
-                /* Datos de jugadores */
-                for (i = 0; i < numJugadores; i++)
+                /* Lista de jugadores */
+                if (ranking && numJugadores > 0)
                 {
-                    nk_layout_space_begin(ctx, NK_STATIC, 30, 2);
-                    nk_layout_space_push(ctx, nk_rect(padding, 0, anchoTabla/2, 30));
-                    nk_label(ctx, ranking[i].nombre, NK_TEXT_CENTERED);
-                    nk_layout_space_push(ctx, nk_rect(padding + anchoTabla/2, 0, anchoTabla/2, 30));
-                    snprintf(victorias, sizeof(victorias), "%d", ranking[i].victorias);
-                    nk_label(ctx, victorias, NK_TEXT_CENTERED);
-                    nk_layout_space_end(ctx);
+                    /* Encabezados con estilo personalizado */
+                    nk_layout_row_dynamic(ctx, 30, 2);
+
+                    /* Estilo para los encabezados */
+                    estiloVisualizacion = ctx->style.text;
+                    ctx->style.text.color = nk_rgb(220, 220, 220);  // Gris muy claro
+                    ctx->style.text.padding = nk_vec2(0, 2);
+
+                    /* Encabezados */
+                    nk_label_colored(ctx, "JUGADOR", NK_TEXT_CENTERED, nk_rgb(255, 255, 255));
+                    nk_label_colored(ctx, "VICTORIAS", NK_TEXT_CENTERED, nk_rgb(255, 255, 255));
+
+                    /* Restaurar estilo original */
+                    ctx->style.text = estiloVisualizacion;
+
+                    /* Separador bajo los encabezados */
+                    nk_layout_row_dynamic(ctx, 2, 1);
+                    nk_spacing(ctx, 1);
+
+                    /* Espacio después del separador */
+                    nk_layout_row_dynamic(ctx, 5, 1);
+                    nk_spacing(ctx, 1);
+
+                    /* Datos de jugadores */
+                    for (i = 0; i < numJugadores; i++)
+                    {
+                        nk_layout_row_dynamic(ctx, 30, 2);
+                        nk_label(ctx, ranking[i].nombre, NK_TEXT_CENTERED);
+                        snprintf(victorias, sizeof(victorias), "%d", ranking[i].victorias);
+                        nk_label(ctx, victorias, NK_TEXT_CENTERED);
+                    }
                 }
-            }
-            else
-            {
-                nk_layout_row_dynamic(ctx, 30, 1);
-                nk_label(ctx, "No hay datos de ranking disponibles", NK_TEXT_CENTERED);
+                else
+                {
+                    nk_layout_row_dynamic(ctx, 30, 1);
+                    nk_label(ctx, "No hay datos de ranking disponibles", NK_TEXT_CENTERED);
+                }
+                nk_group_end(ctx);
             }
 
             /* Espaciador antes del botón */
@@ -1548,6 +1532,49 @@ void iniciarPantallaJuego(const Partida* partida)
 {
     pantallaJuego = 1;
     juegoActual = partida;
+
+    /* Forzar un renderizado inicial para asegurar que todos los elementos estén activos */
+    glViewport(0, 0, ventAncho, ventAlto);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClearColor(fondo.r, fondo.g, fondo.b, fondo.a);
+
+    /* Renderizar paneles iniciales */
+    if (nk_begin(ctx, "Área IA", crearPanelArriba(), NK_WINDOW_NO_SCROLLBAR))
+    {
+        nk_end(ctx);
+    }
+    if (nk_begin(ctx, "Área del jugador", crearPanelAbajo(), NK_WINDOW_NO_SCROLLBAR))
+    {
+        nk_end(ctx);
+    }
+
+    /* Renderizar el botón de terminar partida para asegurar que esté activo */
+    struct nk_rect rectanguloTerminarPartida = nk_rect(ventAncho - 200, 80, 180, 50);
+    struct nk_style_button estiloDeBotonAnterior;
+
+    if (nk_begin(ctx, "Terminar Partida", rectanguloTerminarPartida, NK_WINDOW_NO_SCROLLBAR))
+    {
+        nk_layout_row_dynamic(ctx, 40, 1);
+
+        estiloDeBotonAnterior = ctx->style.button;
+        ctx->style.button.normal = nk_style_item_color(nk_rgba(190, 50, 50, 255));
+        ctx->style.button.hover = nk_style_item_color(nk_rgba(220, 60, 60, 255));
+        ctx->style.button.active = nk_style_item_color(nk_rgba(240, 70, 70, 255));
+        ctx->style.button.text_normal = nk_rgb(255, 255, 255);
+        ctx->style.button.text_hover = nk_rgb(255, 255, 255);
+        ctx->style.button.text_active = nk_rgb(255, 255, 255);
+        ctx->style.button.border_color = nk_rgb(190, 50, 50);
+        ctx->style.button.border = 1;
+
+        nk_button_label(ctx, "Terminar Partida");
+
+        ctx->style.button = estiloDeBotonAnterior;
+    }
+    nk_end(ctx);
+
+    /* Renderizar y mostrar */
+    nk_sdl_render(NK_ANTI_ALIASING_ON);
+    SDL_GL_SwapWindow(vent);
 }
 
 void terminarPantallaJuego()
@@ -1836,7 +1863,8 @@ static void renderizarPanelJugador(struct nk_context* ctx, const Partida* partid
 /* GUI para elegir una carta por el humano */
 int elegirCartaGUI(const Jugador* jugador, const Partida* partida)
 {
-    int cartaSeleccionada = -1;
+    int cartaSeleccionada = -1, primeraVez = 1;
+    struct nk_style_button estiloDeBotonAnterior;
 
     while (cartaSeleccionada == -1 && corriendo)
     {
@@ -1853,10 +1881,31 @@ int elegirCartaGUI(const Jugador* jugador, const Partida* partida)
         if (nk_begin(ctx, "Terminar Partida", rectanguloTerminarPartida, NK_WINDOW_NO_SCROLLBAR))
         {
             nk_layout_row_dynamic(ctx, 40, 1);
+
+            /* Asegurarse de que el botón siempre esté activo */
+            estiloDeBotonAnterior = ctx->style.button;
+            ctx->style.button.normal = nk_style_item_color(nk_rgba(190, 50, 50, 255));
+            ctx->style.button.hover = nk_style_item_color(nk_rgba(220, 60, 60, 255));
+            ctx->style.button.active = nk_style_item_color(nk_rgba(240, 70, 70, 255));
+            ctx->style.button.text_normal = nk_rgb(255, 255, 255);
+            ctx->style.button.text_hover = nk_rgb(255, 255, 255);
+            ctx->style.button.text_active = nk_rgb(255, 255, 255);
+            ctx->style.button.border_color = nk_rgb(190, 50, 50);
+            ctx->style.button.border = 1;
+
+            /* Forzar un renderizado inicial del botón */
+            if (primeraVez)
+            {
+                nk_button_label(ctx, "Terminar Partida");
+                primeraVez = 0;
+            }
+
             if (nk_button_label(ctx, "Terminar Partida"))
             {
                 cartaSeleccionada = SALIR_DEL_JUEGO;
             }
+
+            ctx->style.button = estiloDeBotonAnterior;
         }
         nk_end(ctx);
 
@@ -1911,7 +1960,7 @@ void mostrarTurnoJugador(const char* nombreJugador, int esIA)
 
             /* Renderizar paneles */
             renderizarPanelIA(ctx, juegoActual, 0, NULL, nk_rgb(0, 0, 0));
-            renderizarPanelJugador(ctx, juegoActual, 0, "Espere mientras la IA realiza su jugada...", NULL);
+            renderizarPanelJugador(ctx, juegoActual, 0, "Esperá mientras la IA realiza su jugada...", NULL);
 
             /* Renderizar y esperar */
             nk_sdl_render(NK_ANTI_ALIASING_ON);
@@ -1927,7 +1976,9 @@ void mostrarResultadoPartida(const Partida* partida)
     const char* titulo;
     struct nk_color colorTitulo;
     struct nk_rect rectanguloBoton;
+    struct nk_style_button estiloDeBotonAnterior;
     int continuar = 0;
+    int mousePresionado = 0;
 
     /* Determinar título y color según el resultado */
     if (partida->jugador.esVencedor)
@@ -1944,7 +1995,29 @@ void mostrarResultadoPartida(const Partida* partida)
     while (!continuar && corriendo)
     {
         /* Manejar eventos SDL */
-        manejarEventosSDL(ctx, &corriendo);
+        SDL_Event evt;
+        while (SDL_PollEvent(&evt))
+        {
+            if (evt.type == SDL_QUIT)
+            {
+                corriendo = 0;
+                break;
+            }
+            else if (evt.type == SDL_MOUSEBUTTONDOWN)
+            {
+                mousePresionado = 1;
+            }
+            else if (evt.type == SDL_MOUSEBUTTONUP)
+            {
+                mousePresionado = 0;
+            }
+            else if (evt.type == SDL_MOUSEMOTION && mousePresionado)
+            {
+                /* Si el mouse se mueve mientras está presionado, lo consideramos como soltar el botón */
+                mousePresionado = 0;
+            }
+            nk_sdl_handle_event(&evt);
+        }
 
         /* Limpiar la pantalla */
         glViewport(0, 0, ventAncho, ventAlto);
@@ -1960,10 +2033,22 @@ void mostrarResultadoPartida(const Partida* partida)
         if (nk_begin(ctx, "Continuar", rectanguloBoton, NK_WINDOW_NO_SCROLLBAR))
         {
             nk_layout_row_dynamic(ctx, 40, 1);
+
+            /* Asegurarnos que el botón siempre esté activo */
+            estiloDeBotonAnterior = ctx->style.button;
+            ctx->style.button.normal = nk_style_item_color(nk_rgba(60, 120, 250, 255));
+            ctx->style.button.hover = nk_style_item_color(nk_rgba(70, 130, 255, 255));
+            ctx->style.button.active = nk_style_item_color(nk_rgba(80, 140, 255, 255));
+            ctx->style.button.text_normal = nk_rgb(255, 255, 255);
+            ctx->style.button.text_hover = nk_rgb(255, 255, 255);
+            ctx->style.button.text_active = nk_rgb(255, 255, 255);
+
             if (nk_button_label(ctx, "Volver al menú principal"))
             {
                 continuar = 1;
             }
+
+            ctx->style.button = estiloDeBotonAnterior;
         }
         nk_end(ctx);
 
@@ -1978,7 +2063,7 @@ void mostrarResultadoPartida(const Partida* partida)
 }
 
 /* Preguntarle al jugador si quiere defenderse con un espejo */
-int preguntarUsarEspejoGUI(const Jugador* jugador, TipoCarta cartaAtacante)
+int preguntarUsarEspejoGUI(const Jugador* jugador, TipoCarta cartaAtacante, int puntosRival)
 {
     SDL_Event evt;
     struct nk_rect rectanguloDialogo;
@@ -1986,21 +2071,26 @@ int preguntarUsarEspejoGUI(const Jugador* jugador, TipoCarta cartaAtacante)
     struct nk_style_item estiloVisualizacion;
 
     char mensajeDeAtaque[128];
+    char mensajePuntos[128];
     const char* nombreDeAtaque;
 
     int eleccionEspejo = -1;
     int indiceCartaEspejo = -1;
+    int cantidadEspejos = 0;
     int i;
 
     float cartaAncho, cartaAlto, cartaX, cartaY;
 
-    /* Encontrar la posición de la carta espejo */
+    /* Contar cuántas cartas espejo tiene y encontrar la primera */
     for (i = 0; i < MAX_MANO; i++)
     {
         if (jugador->mano[i].tipo == ESPEJO)
         {
-            indiceCartaEspejo = i;
-            break;
+            if (indiceCartaEspejo == -1)
+            {
+                indiceCartaEspejo = i;
+            }
+            cantidadEspejos++;
         }
     }
 
@@ -2048,6 +2138,11 @@ int preguntarUsarEspejoGUI(const Jugador* jugador, TipoCarta cartaAtacante)
             snprintf(mensajeDeAtaque, sizeof(mensajeDeAtaque), "Recibiste un ataque de: %s", nombreDeAtaque);
             nk_label(ctx, mensajeDeAtaque, NK_TEXT_CENTERED);
 
+            /* Mostrar los puntos actuales */
+            nk_layout_row_dynamic(ctx, 25, 1);
+            snprintf(mensajePuntos, sizeof(mensajePuntos), "Puntos actuales - Vos: %d | Rival: %d", jugador->puntos, puntosRival);
+            nk_label(ctx, mensajePuntos, NK_TEXT_CENTERED);
+
             nk_layout_row_dynamic(ctx, 25, 1);
             nk_label(ctx, "Tenés una Carta Espejo disponible.", NK_TEXT_CENTERED);
 
@@ -2065,16 +2160,27 @@ int preguntarUsarEspejoGUI(const Jugador* jugador, TipoCarta cartaAtacante)
                          ESPEJO, jugador->mano[indiceCartaEspejo].nombre, 1);
 
             nk_layout_row_dynamic(ctx, 25, 1);
-            nk_label(ctx, "¿Querés usar tu Carta Espejo para reflejar el ataque?", NK_TEXT_CENTERED);
-
-            nk_layout_row_dynamic(ctx, 35, 2);
-            if (nk_button_label(ctx, "SÍ - Usar Espejo"))
+            if (cantidadEspejos == MAX_MANO)
             {
-                eleccionEspejo = indiceCartaEspejo;
+                nk_label(ctx, "¡Tenés tres cartas espejo! Debés usar una para evitar un bloqueo.", NK_TEXT_CENTERED);
+                nk_layout_row_dynamic(ctx, 35, 1);
+                if (nk_button_label(ctx, "OK - Usar Espejo"))
+                {
+                    eleccionEspejo = indiceCartaEspejo;
+                }
             }
-            if (nk_button_label(ctx, "NO - Perder puntos"))
+            else
             {
-                eleccionEspejo = -2; // No quiere usar = -2
+                nk_label(ctx, "¿Querés usar tu Carta Espejo para reflejar el ataque?", NK_TEXT_CENTERED);
+                nk_layout_row_dynamic(ctx, 35, 2);
+                if (nk_button_label(ctx, "SÍ - Usar Espejo"))
+                {
+                    eleccionEspejo = indiceCartaEspejo;
+                }
+                if (nk_button_label(ctx, "NO - Perder puntos"))
+                {
+                    eleccionEspejo = -2; // No quiere usar = -2
+                }
             }
 
             /* Resetear el estilo */
@@ -2090,7 +2196,7 @@ int preguntarUsarEspejoGUI(const Jugador* jugador, TipoCarta cartaAtacante)
         SDL_Delay(16);
     }
 
-    return (eleccionEspejo == -2) ? -1 : eleccionEspejo;
+    return eleccionEspejo;
 }
 
 /* Comprobar si la interfaz debería seguir ejecutándose */
