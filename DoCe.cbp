@@ -30,6 +30,7 @@
 			<Add library="opengl32" />
 			<Add library="gdi32" />
 			<Add library="winmm" />
+			<Add library="lib/libcurl.dll.a" />
 			<Add directory="lib" />
 					<Add option="-s" />
 				</Linker>
